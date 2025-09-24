@@ -17,4 +17,4 @@ A ideia é criar uma aplicação que conecta <strong>emoções e tecnologia</str
 </ul>
 
 <h2>Sobre este repositório</h2>
-<p>Este repositório é acadêmico, mas também serve como <strong>vitrine de aprendizado</strong> para curiosos e recrutadores interessados em projetos de tecnologia voltados à experiência do usuário.</p>
+<p>Este repositório é acadêmico, mas também serve como <strong>vitrine de aprendizados</strong>
