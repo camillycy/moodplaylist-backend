@@ -1,13 +1,15 @@
 {
   "name": "moodplaylist-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "<h1>Mood Playlist</h1>",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "node server.js",
-      "dev": "nodemon server.js"
-  },
+  "dev": "nodemon --watch \"src/**/*.ts\" --exec ts-node-esm src/server.ts",
+  "build": "tsc",
+  "start": "node dist/server.js"
+}
+,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/camillycy/moodplaylist-backend.git"
@@ -26,8 +28,10 @@
     "mongoose": "^8.18.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.6.1",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
-
-  
 }
