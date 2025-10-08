@@ -15,8 +15,14 @@ export async function analyzeEmotion(text: string) {
       }
     );
 
-    console.log("✅ Sucesso:", response.data);
-    return response.data;
+    // Obter apenas a emoção com maior score
+    const predictions = response.data[0]; // primeiro array
+    const topPrediction = predictions.reduce((prev: any, current: any) => 
+      current.score > prev.score ? current : prev
+    );
+
+    console.log("✅ Emoção predominante:", topPrediction);
+    return topPrediction; // { label: "neutral", score: 0.919 }
   } catch (error: any) {
     console.error("❌ Erro Axios:", error.message);
     console.error("❌ Response completo:", error.response);

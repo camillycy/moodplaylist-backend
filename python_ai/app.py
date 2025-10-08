@@ -9,11 +9,9 @@ app = FastAPI(title="Mood Playlist AI")
 
 MODEL_NAME = "SamLowe/roberta-base-go_emotions"
 
-# Carregar modelo e tokenizer
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME)
 
-# Request body
 class TextRequest(BaseModel):
     text: str
 
