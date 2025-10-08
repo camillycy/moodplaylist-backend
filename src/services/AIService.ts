@@ -21,7 +21,7 @@ export async function analyzeEmotion(text: string) {
       current.score > prev.score ? current : prev
     );
 
-    console.log("✅ Emoção predominante:", topPrediction);
+    console.log("Emoção predominante:", topPrediction);
     return topPrediction; // { label: "neutral", score: 0.919 }
   } catch (error: any) {
     console.error("❌ Erro Axios:", error.message);
@@ -29,4 +29,5 @@ export async function analyzeEmotion(text: string) {
     console.error("❌ Config Axios:", error.config);
     return { error: "Erro real: veja console" };
   }
+  
 }
