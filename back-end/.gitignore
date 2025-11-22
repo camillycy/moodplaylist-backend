@@ -1,0 +1,5 @@
+.env
+node_modules
+python_ai/venv/
+python_ai/__pycache__/
+config
