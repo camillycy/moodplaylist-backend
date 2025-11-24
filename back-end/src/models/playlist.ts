@@ -11,6 +11,7 @@ export interface IRecommendation {
 
 export interface IPlaylist extends Document {
   userId: mongoose.Types.ObjectId;
+  userName?: string;
   mood: string;
   type: "playlist" | "music";
   recommendations: IRecommendation[];

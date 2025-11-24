@@ -6,6 +6,9 @@ import User from "../models/user";
 import path from "path";
 import fs from "fs";
 import { error } from "console";
+import crypto from "crypto"
+import { transporter } from "../utils/mailer";
+
 
 // ====================
 // CADASTRO DE USUÁRIO
@@ -117,7 +120,7 @@ export const updateProfilePicture = async (req: Request, res: Response) => {
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ error: "Usuário não encontrado" });
 
-    // Remover imagem antiga (opcional)
+    // remover imagem antiga
 if (user.profilePicture) {
   try {
     const oldFileName = path.basename(user.profilePicture);
@@ -134,7 +137,6 @@ if (user.profilePicture) {
 
 }
 
-
     user.profilePicture = imageUrl;
     await user.save();
 
@@ -150,3 +152,138 @@ if (user.profilePicture) {
 };
 
 
+// ====================
+// DELETAR FOTO DE PERFIL
+// ====================
+export const deleteProfilePicture = async (req: Request, res: Response) => {
+  try {
+
+    console.log("BODY RECEBIDO NO DELETE:", req.body);
+
+    const { userId } = req.body;
+
+    if (!userId)
+      return res.status(400).json({ error: "userId é obrigatório" });
+
+    const user = await User.findById(userId);
+    if (!user)
+      return res.status(404).json({ error: "Usuário não encontrado" });
+
+    // Se existir foto anterior, apaga do servidor
+    if (user.profilePicture) {
+      const fileName = path.basename(user.profilePicture);
+      const filePath = path.join(__dirname, "..", "uploads", fileName);
+
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
+
+    // Voltar para sem foto
+    user.profilePicture = null;
+    await user.save();
+
+    return res.json({
+      message: "Foto removida com sucesso!",
+      profilePicture: null
+    });
+
+  } catch (err) {
+    console.error("❌ Erro ao deletar foto:", err);
+    return res.status(500).json({ error: "Erro interno no servidor" });
+  }
+};
+
+// ====================
+// ATUALIZAR EMAIL E SENHA
+// ====================
+export const updateEmailOrPassword = async (req: Request, res: Response) => {
+  try {
+    const { userId, email, oldPassword, newPassword } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({ error: "userId é obrigatório" });
+    }
+
+    const existingUser = await User.findById(userId);
+    if (!existingUser) {
+      return res.status(404).json({ error: "Usuário não encontrado" });
+    }
+
+    const updateFields: any = {};
+
+    if (email) {
+      const emailExists = await User.findOne({ email });
+    if (emailExists && (emailExists as any)._id.toString() !== userId) {
+        return res.status(400).json({ error: "Este email já está em uso" });
+      }
+      updateFields.email = email;
+    }
+
+    if (newPassword) {
+      if (!oldPassword) {
+        return res.status(400).json({ error: "Senha atual é obrigatória para mudar a senha" });
+      }
+
+      const passwordMatch = await bcrypt.compare(oldPassword, existingUser.password);
+      if (!passwordMatch) {
+        return res.status(400).json({ error: "Senha atual incorreta" });
+      }
+
+      const hashed = await bcrypt.hash(newPassword, 10);
+      updateFields.password = hashed;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      updateFields,
+      { new: true }
+    ) as any;
+
+    return res.json({
+      message: "Dados atualizados com sucesso!",
+      userId: updatedUser?._id
+    });
+
+  } catch (err) {
+    console.error("❌ Erro ao atualizar email/senha:", err);
+    return res.status(500).json({ error: "Erro interno no servidor" });
+  }
+};
+
+// ====================
+// ENVIAR SENHA PROVISÓRIA
+
+export const sendTempPassword = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) return res.status(400).json({ error: "E-mail é obrigatório" });
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ error: "Usuário não encontrado" });
+
+    const tempPassword = crypto.randomBytes(4).toString("hex");
+
+    user.password = await bcrypt.hash(tempPassword, 10);
+    await user.save();
+
+    const mailOptions = {
+      from: '"VibeLog" <vibelogapp@gmail.com>',
+      to: user.email,
+      subject: "Senha provisória",
+      text: `Olá ${user.name}, sua senha provisória é: ${tempPassword}\nUse esta senha para entrar e altere imediatamente após o login.`,
+      html: `<p>Olá <b>${user.name}</b>,</p>
+             <p>Sua senha provisória é: <b>${tempPassword}</b></p>
+             <p>Use esta senha para entrar e altere imediatamente após o login.</p>`
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    return res.json({ message: "Senha provisória enviada por e-mail!" });
+
+  } catch (err) {
+    console.error("❌ Erro ao enviar senha provisória:", err);
+    return res.status(500).json({ error: "Erro interno no servidor" });
+  }
+};

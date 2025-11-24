@@ -1,3 +1,5 @@
+// userroutes.ts
+
 import express from "express";
 import multer from "multer";
 import path from "path";
@@ -6,8 +8,13 @@ import {
   getAllUsers,
   loginUser,
   getUserById,
-  updateProfilePicture
+  updateProfilePicture,
+  deleteProfilePicture,
+  updateEmailOrPassword
 } from "../controllers/userController";
+import { sendTempPassword } from "../controllers/userController";
+
+
 
 const router = express.Router();
 
@@ -22,15 +29,22 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// Rotas existentes
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.get("/", getAllUsers);
-router.get("/:id", getUserById);
+router.post("/send-temp-password", sendTempPassword);
+router.delete("/profile-picture", deleteProfilePicture);
+
 
 router.post(
   "/update-profile-picture",
   upload.single("profile"),
   updateProfilePicture
 );
+
+
+router.put("/update-email-password", updateEmailOrPassword);
+router.get("/", getAllUsers);
+router.get("/:id", getUserById);
 
 export default router;

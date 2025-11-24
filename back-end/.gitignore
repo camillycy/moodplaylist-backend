@@ -3,3 +3,5 @@ node_modules
 python_ai/venv/
 python_ai/__pycache__/
 config
+src/services/emailService.ts
+src/utils/mailer.ts

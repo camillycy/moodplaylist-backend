@@ -3,7 +3,6 @@ import Playlist from "../models/playlist";
 import { searchPlaylists } from "../services/spotifyService";
 import { analyzeEmotion } from "../services/PythonAIService";
 
-// 🔹 1) Gerar playlist personalizada usando IA
 export const generateFromMood = async (req: Request, res: Response) => {
   try {
     const { mood, type = "playlist", userId } = req.body;
@@ -44,7 +43,6 @@ export const generateFromMood = async (req: Request, res: Response) => {
   }
 };
 
-// 🔹 2) Buscar playlist pelo ID
 export const getPlaylistById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -57,7 +55,6 @@ export const getPlaylistById = async (req: Request, res: Response) => {
   }
 };
 
-// 🔹 3) Buscar últimas 3 playlists do usuário
 export const getLastPlaylists = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;

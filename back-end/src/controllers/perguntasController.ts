@@ -11,7 +11,6 @@ export const analisarResposta = async (req: Request, res: Response) => {
 
     const aiResult = await analyzeEmotion(text);
 
-    // Salva histórico de emoções
     await EmotionHistory.create({
       userId,
       text,

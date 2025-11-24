@@ -45,7 +45,7 @@ async function getAccessToken(): Promise<string> {
 }
 
 /**
- * Buscar playlists por humor
+ * Buscar playlists por humor — versão segura
  */
 export async function getPlaylistsByMood(query: string) {
   const token = await getAccessToken();
@@ -55,15 +55,28 @@ export async function getPlaylistsByMood(query: string) {
     params: {
       q: query,
       type: "playlist",
-      limit: 1, // você pediu APENAS UMA playlist
+      limit: 5, // pega mais itens para evitar itens null
     },
   });
 
-  return res.data.playlists.items.map((p: any) => ({
-    name: p.name,
-    description: p.description,
-    image: p.images[0]?.url || null,
-    url: p.external_urls.spotify,
-    id: p.id,
+  const items = res.data.playlists?.items || [];
+
+  // 🔥 Filtra null, undefined, e objetos quebrados
+  const validItems = items.filter(
+    (p: any) => p && typeof p === "object" && p.name
+  );
+
+  // Se nada válido vier, não quebra
+  if (validItems.length === 0) {
+    console.error("❌ Spotify retornou items inválidos:", items);
+    return [];
+  }
+
+  return validItems.map((p: any) => ({
+    name: p.name || "Playlist sem nome",
+    description: p.description || "",
+    image: p.images?.[0]?.url || null,
+    url: p.external_urls?.spotify || "",
+    id: p.id || "",
   }));
 }

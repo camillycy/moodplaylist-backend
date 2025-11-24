@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import Playlist from "../models/playlist";
 
-// Criar nova playlist (ou música)
 export const createPlaylist = async (req: Request, res: Response) => {
   try {
     const { userId, mood, type, recommendations } = req.body;
@@ -26,7 +25,6 @@ export const createPlaylist = async (req: Request, res: Response) => {
   }
 };
 
-// Obter uma playlist específica (pra exibir na tela de resultado)
 export const getPlaylistById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -40,7 +38,6 @@ export const getPlaylistById = async (req: Request, res: Response) => {
   }
 };
 
-// Histórico (últimas 5)
 export const getUserPlaylists = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;

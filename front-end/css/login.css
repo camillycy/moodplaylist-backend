@@ -1,0 +1,135 @@
+h1{
+  color: #0857A0;
+  font-weight: bold;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.45), 4px 4px 10px rgba(0, 0, 0, 0.3);
+  font-size: 3.5rem;
+}
+
+.container {
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+  width: 95vw;
+  color: #fefefe;
+}
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+  gap: 1rem;
+}
+
+input {
+  width: 80vw;
+  margin: 0.5rem 0;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 15px;
+  background-color: #0856a098;
+}
+
+input::placeholder{
+  color: #0857A0;
+  font-weight: bold;
+}
+
+input:focus{
+  outline: 3px solid #0857A0;
+}
+
+.input-senha-wrapper {
+  position: relative;
+}
+
+/* Ícones do olho */
+.btnSenha,
+.btnConfirmeSenha {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 24px;
+  color: #0c0c0c;
+  user-select: none;
+  z-index: 5;
+}
+
+/* garante que o ícone "on" fique no mesmo lugar quando exibido */
+#iconOn, #iconOn2 { 
+  right: 12px; 
+}
+
+#iconOff, #iconOff2 { 
+  right: 12px; 
+}
+
+.cadastro{
+  color: #0857A0;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.entrar {
+  background-color: #0857A0;
+  color: #fff;
+  border: 1px solid #000;
+  border-radius: 35px;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  width: 70vw;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+  justify-content: center;
+  margin-top: 10%;
+}
+
+#status {
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+@media(max-width: 900px){
+  h1{
+    font-size: 3rem;
+  }
+}
+
+@media(max-width: 700px){
+  h1{
+      font-size: 2rem;
+  }
+  .cadastro{
+    font-size: 0.8rem;
+  }
+}
+
+/* Container que envolve o input da senha */
+.containerPassword {
+  position: relative; /* permite que os ícones fiquem posicionados em relação a esse container */
+  width: 100%;
+}
+
+/* Ícones do olho */
+.btnSenha {
+  position: absolute;
+  right: 12px;        /* distância da borda direita do container */
+  top: 50%;           /* centraliza verticalmente */
+  transform: translateY(-50%); /* ajuste fino para centralizar */
+  cursor: pointer;
+  font-size: 24px;
+  color: #0c0c0c;
+  user-select: none;
+  z-index: 5;
+}
+
+/* garante que cada ícone individual fique no mesmo lugar quando alternado */
+#iconOn, #iconOff {
+  right: 12px;
+}

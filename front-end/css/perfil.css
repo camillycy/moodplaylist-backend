@@ -1,0 +1,177 @@
+/* perfil */
+
+.container-perfil {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Avatar */
+.avatar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.update-img {
+    position: absolute;
+    bottom: -5px;
+    right: 15px;
+    font-size: 28px;
+    color: black;
+    background-color: #fff;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
+    cursor: pointer;
+}
+
+.delete-img {
+    position: absolute;
+    bottom: -5px;
+    left: 15px;   /* lado oposto */
+    font-size: 28px;
+    color: white;
+    background-color: #e74c3c;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
+    cursor: pointer;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover opcional */
+.delete-img:hover {
+    background-color: #c0392b;
+}
+
+
+/* Inputs container */
+.container-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 35px;
+    padding-left: 10%;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* TITULOS (Senha / Email) */
+.dados-pessoais {
+    position: relative;
+    width: 100%;
+    padding: 8px 40px 18px 0;
+    color: white;
+    font-size: 16px;
+    font-weight: 100;
+}
+
+/* LINHA INFERIOR */
+#dados-nome .linha-inferior,
+#dados-email .linha-inferior,
+#dados-senha .linha-inferior {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1rem;
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+    display: block;
+}
+
+/* CAMPOS EM LINHA: email e senha */
+.campo-email,
+.campo-senha {
+    position: absolute;
+    right: 48px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: calc(100% - 120px);
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: white;
+    outline: none;
+    padding: 4px 0;
+}
+
+/* Ícone do olho */
+.btnSenha {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-40%);
+    cursor: pointer;
+    font-size: 22px;
+    color: white;
+    user-select: none;
+}
+
+#iconOn { right: 12px; }
+#iconOff { right: 12px; }
+
+/* Botão SALVAR */
+.btn-salvar,
+.btn-salvar-perfil {
+    width: 80%;
+    max-width: 380px;
+    margin: 20px auto 40px auto;
+    padding: 12px 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #005f93;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+}
+
+.btn-salvar:hover,
+.btn-salvar-perfil:hover {
+    opacity: 0.9;
+}
+
+
+/* Nome do usuário estilizado */
+#userName {
+    font-size: 2rem;                        /* maior que os inputs */
+    font-weight: 700;                        /* mais forte e destacado */
+    color: #dce0e1;                          /* azul vibrante */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4); /* sombra suave */
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+/* Efeito hover apenas visual */
+#userName:hover {
+    color: #7D2DDD;                          /* muda para lilás ao passar o mouse */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    cursor: default;                          /* não indica que é clicável */
+}
+
+
+

@@ -1,0 +1,177 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  a{
+    text-decoration: none;
+    color: inherit;
+  }
+
+  button{
+    border: none;
+    outline: none;
+  }
+
+  /* Remove o texto padrão (ex: "dd/mm/aaaa") */
+    input[type="date"]::-webkit-datetime-edit {
+      color: transparent;
+    }
+
+    /* Mostra o texto normalmente quando o usuário seleciona uma data */
+    input[type="date"]:focus::-webkit-datetime-edit,
+    input[type="date"]:valid::-webkit-datetime-edit {
+      color: #000; /* ou a cor que quiser */
+    }
+}
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #fefefe;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+
+.wave-container {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  position: relative;
+  margin: 0;
+}
+
+.wave-container svg {
+  display: block;
+  width: 100%;
+  height: 17vh;
+}
+
+/* svg que cria a onda */
+.header svg {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 10vh; 
+  display: block;
+}
+
+/* o preenchimento do path deve ser branco para "recortar" o gradiente */
+.header svg path {
+  fill: #fefefe;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+
+
+.logo{
+  display: flex;
+  position: fixed;
+  flex-direction: row;
+  justify-content: center ;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 0;
+  bottom: 3%;
+  right: 5%;
+}   
+
+.img-logo{
+  width: 5vw;
+  height: 6vh;
+}
+
+.logo-gif {
+  display: flex;
+  width: 1vw;
+  height: 1.5vh;
+  background-color: #004b96;
+  border-radius: 50%;
+  animation: heartbeat 1.5s infinite;
+}
+
+/* Ondas que saem do círculo */
+.logo-gif::before,
+.logo-gif::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(0, 59, 135, 0.5);
+  border-radius: 50%;
+  opacity: 0;
+  animation: ripple 1.5s ease-out infinite;
+}
+
+/* atraso para criar efeito de várias ondas */
+.logo-gif::after {
+  animation-delay: 0.2s;
+}
+
+@keyframes heartbeat{
+  0% { transform: scale(1) }
+  10% { transform: scale(1.2) }
+  20% { transform: scale(1) }
+  30% { transform: scale(1) }
+  40% { transform: scale(1) }
+  100% { transform: scale(1) }
+}
+
+/* Animação das ondas */
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+@media(max-width: 900px){
+  h1{
+    font-size: 3rem;
+  }
+  .img-logo{
+    width: 6vw;
+    height: 7vh;
+  }
+  .logo-gif{
+    width: 1vw;
+    height: 1vh;
+  }
+}
+
+@media(max-width: 700px){
+  h1{
+      font-size: 2rem;
+  }
+  .img-logo{
+  
+      height: 5vh;
+  }
+  .logo-gif{
+    width: 1vw;
+    height: 1.5vh;
+  }
+}
+
+@media(max-width: 500px){
+  .img-logo{
+    height: 4vh;
+  }
+  .logo-gif{
+    height: 0.8vh;
+  }
+}

@@ -15,7 +15,6 @@ model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME)
 class TextRequest(BaseModel):
     text: str
 
-# Função de pré-processamento
 def preprocess_text(text: str) -> str:
     text = re.sub(r'(.)\1{2,}', r'\1', text)
 
@@ -27,10 +26,8 @@ def preprocess_text(text: str) -> str:
 
 @app.post("/analyze")
 async def analyze_emotion(request: TextRequest):
-    # Pré-processar texto
     preprocessed_text = preprocess_text(request.text)
 
-    # Tokenizar
     inputs = tokenizer(preprocessed_text, return_tensors="pt")
 
 
