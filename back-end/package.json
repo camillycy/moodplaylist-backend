@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--experimental-specifier-resolution=node nodemon --watch \"src/**/*.ts\" --exec ts-node-esm src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "npm run build && node dist/server.js"
   },
   "repository": {
     "type": "git",
