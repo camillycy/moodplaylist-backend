@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 // CORS
 app.use(
   cors({
-    origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
+    origin: ["http://127.0.0.1:5500", "http://localhost:5500", "http://192.168.0.102:5500"],
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
